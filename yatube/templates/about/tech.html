@@ -1,0 +1,32 @@
+<!-- templates/about/tech.html -->
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+<div class="row">
+  <h1>Вот что я умею</h1>
+  <aside class="col-12 col-md-3">
+    <ul class="list-group-flush">
+      <li class="list-group-item">
+        <b>Python</b>
+      </li>
+      <li class="list-group-item">
+        <b>Django</b>
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-12">
+    <p> Пока только это, но я учусь.
+        Моё рабочее место напичкано шпаргалками, на фото тут порядок, а на самом деле хаос :)
+    </p>
+  </article>
+</div>
+{% load static %}
+<nav class="navbar navbar-light" style="background-color: lightskyblue">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'posts:index' %}">
+      <img src="{% static 'img/picture.png' %}" width="600" height="600" class="d-inline-block align-center" alt="">
+      <span style="color:blue">Мой уютный мирок с кодами</span>
+    </a>
+  </div>
+</nav> 
+{% endblock %}
