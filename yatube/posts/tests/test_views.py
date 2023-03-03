@@ -147,6 +147,23 @@ class PostPagesTests(TestCase):
         post_text = first_object.text
         self.assertTrue(post_text, 'Тестовый текст')
 
+    def test_cache(self):
+        """Тестируем кэш."""
+        post = Post.objects.create(
+            text='text',
+            author=self.username,
+            group=self.group
+        )
+        response = self.authorized_client.get(reverse('posts:index'))
+        response_post = response.context['page_obj'][0]
+        self.assertEqual(post, response_post)
+        post.delete()
+        response_2 = self.authorized_client.get(reverse('posts:index'))
+        self.assertEqual(response.content, response_2.content)
+        cache.clear()
+        response_3 = self.authorized_client.get(reverse('posts:index'))
+        self.assertNotEqual(response.content, response_3.content)
+
 
 class PostPaginatorTests(TestCase):
     @classmethod
