@@ -83,7 +83,7 @@ class PostFormTests(TestCase):
         )
 
     def test_form_update(self):
-        """Проверка редактирования поста через форму на странице"""
+        """Проверка редактирования поста через форму на странице."""
         post_count = Post.objects.count()
         uploaded = SimpleUploadedFile(
             name='small_1.gif',
@@ -135,6 +135,9 @@ class PostFormTests(TestCase):
         self.assertEqual(comment_text, form_data['text'])
 
     def test_add_comment_client(self):
+        """
+        Тестируем добавление комментария.
+        """
         comment_count = Comment.objects.count()
         response = self.client.post(
             reverse(

@@ -22,31 +22,12 @@
               </div>
               <form method='post' enctype="multipart/form-data">
               {% csrf_token %}
-                <div class="form-group row my-3 p-3">
-                  {{ form.image }}
-                  <span class="helptext text-muted">Загрузите картинку</span>
-                  <label for="id_text">Текст поста<span class="required text-danger" >*</span></label>
-                  {{ form.text }}
-                  <span class="helptext text-muted">Текст нового поста</span>
-                </div>                
-                <div class="form-group row my-3 p-3">
-                  <label for="id_group">Группа</label>
-                  {{ form.group }}
-                  <span class="helptext text-muted">Группа, к которой будет относиться пост</span>
-                </div>
+              {% include 'users/includes/form.html' %}
               <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">
-                  {% if is_edit %}
-                    Сохранить
-                  {% else %}
-                    Добавить
-                  {% endif %}
+                    {% if form.instance.pk %}Сохранить{% else %}Добавить{% endif %}
                 </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+            </div>
+        </form>
     </div>
-  </div>
 {% endblock %}

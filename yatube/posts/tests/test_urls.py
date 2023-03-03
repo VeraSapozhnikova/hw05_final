@@ -18,7 +18,7 @@ class PostsURLTests(TestCase):
             slug='test_slug',
             description='Тестовое описание'
         )
-        cls.username = User.objects.create_user(username='test_user')
+        cls.username = User.objects.create_user(username='author')
         cls.post = Post.objects.create(
             author=cls.username,
             text='Тест 15символов',
@@ -35,7 +35,8 @@ class PostsURLTests(TestCase):
         templates_url_names = {
             'posts/index.html': '/',
             'posts/group_list.html': f'/group/{PostsURLTests.group.slug}/',
-            'posts/profile.html': f'/profile/{PostsURLTests.username}/',
+            'posts/profile.html':
+            f'/profile/{PostsURLTests.username.username}/',
             'posts/post_detail.html': f'/posts/{PostModelTest.post.id}/',
         }
         for template, address in templates_url_names.items():

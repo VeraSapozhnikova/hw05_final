@@ -8,7 +8,7 @@ from .models import Comment, Follow, Group, Post, User
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.select_related('group', 'author').all()
     paginator = Paginator(posts, settings.POSTS_AMOUNT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -22,7 +22,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()
+    posts = group.posts.select_related('author').all()
     paginator = Paginator(posts, settings.POSTS_AMOUNT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -37,7 +37,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    posts = author.posts.all()
+    posts = author.posts.select_related('group').all()
     count = posts.count()
     paginator = Paginator(posts, settings.POSTS_AMOUNT)
     page_number = request.GET.get('page')
@@ -129,15 +129,12 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if (author != request.user
-        and not Follow.objects.filter(
+    if request.user != author:
+        Follow.objects.get_or_create(
             user=request.user,
-            author=author).exists()):
-        Follow.objects.create(
-            user=request.user,
-            author=author,
+            author=author
         )
-    return redirect('posts:profile', username=username)
+    return redirect('posts:profile', username)
 
 
 @login_required

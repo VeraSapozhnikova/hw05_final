@@ -1,3 +1,4 @@
+import shutil
 import tempfile
 from http import HTTPStatus
 
@@ -53,6 +54,24 @@ class PostPagesTests(TestCase):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.username)
         cache.clear()
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
+
+    def check_contex(self, response, bool=False):
+        """Проверка контекста. Общая функция для тестов страниц."""
+        if bool:
+            post = response.context.get('post')
+        else:
+            post = response.context['page_obj'][0]
+        self.assertEqual(post.text, self.post.text)
+        self.assertEqual(post.pub_date, self.post.pub_date)
+        self.assertEqual(post.author, self.user)
+        self.assertEqual(post.group, self.group)
+        self.assertEqual(post.image.name, f'posts/{self.uploaded}')
+        self.assertContains(response, '<img', count=2)
 
     def test_pages_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон и HTTP статус."""
