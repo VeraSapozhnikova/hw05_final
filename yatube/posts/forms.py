@@ -6,24 +6,24 @@ from .models import Comment, Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['text', 'group', 'image']
+        fields = ["text", "group", "image"]
         labels = {
-            'text': 'Текст нового поста',
-            'group': 'Группа',
+            "text": "Текст нового поста",
+            "group": "Группа",
         }
         help_texts = {
-            'group': 'Выберите группу для новой записи',
-            'text': 'Добавьте текст для новой записи',
+            "group": "Выберите группу для новой записи",
+            "text": "Добавьте текст для новой записи",
         }
 
 
 class CommentForm(forms.ModelForm):
-    class Meta():
+    class Meta:
         model = Comment
-        fields = ('text',)
+        fields = ("text",)
         labels = {
-            'text': 'Текст комментария',
+            "text": "Текст комментария",
         }
         help_texts = {
-            'text': 'Напишите ваш комментарий',
+            "text": "Напишите ваш комментарий",
         }

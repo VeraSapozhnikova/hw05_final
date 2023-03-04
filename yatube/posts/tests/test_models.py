@@ -10,15 +10,15 @@ class PostModelTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.username = User.objects.create_user(username='auth')
+        cls.username = User.objects.create_user(username="auth")
         cls.group = Group.objects.create(
-            title='Тестовая группа',
-            slug='Тестовый слаг',
-            description='Тестовое описание',
+            title="Тестовая группа",
+            slug="Тестовый слаг",
+            description="Тестовое описание",
         )
         cls.post = Post.objects.create(
             author=cls.username,
-            text='Текст длинее 15 символов',
+            text="Текст длинее 15 символов",
         )
 
     def test_models_have_correct_object_names(self):
@@ -33,9 +33,9 @@ class GroupModelTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.group = Group.objects.create(
-            title='тестовый заголовок',
-            slug='test-slug',
-            description='тестовое описание'
+            title="тестовый заголовок",
+            slug="test-slug",
+            description="тестовое описание",
         )
 
     def test_models_have_correct_names(self):

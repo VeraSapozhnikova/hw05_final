@@ -1,17 +1,18 @@
 from io import BytesIO
 
-import pytest
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.base import File
 from django.core.paginator import Page
 from django.db.models.query import QuerySet
+
+import pytest
 from PIL import Image
+from tests.utils import get_field_from_context
+
 from posts.forms import PostForm
 from posts.models import Post
-
-from tests.utils import get_field_from_context
 
 
 class TestPostView:

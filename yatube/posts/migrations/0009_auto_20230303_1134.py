@@ -4,18 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('posts', '0008_auto_20230227_1446'),
+        ("posts", "0008_auto_20230227_1446"),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='follow',
-            name='user_author',
+            model_name="follow",
+            name="user_author",
         ),
         migrations.AddConstraint(
-            model_name='follow',
-            constraint=models.UniqueConstraint(fields=('user', 'author'), name='uq_user_author'),
+            model_name="follow",
+            constraint=models.UniqueConstraint(
+                fields=("user", "author"), name="uq_user_author"
+            ),
         ),
     ]
